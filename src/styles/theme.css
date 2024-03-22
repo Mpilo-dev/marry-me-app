@@ -1,0 +1,25 @@
+@import "./reset.css";
+
+:root {
+  /*  colours */
+  --black: #000000;
+  --red: #dd0606;
+
+  /* white */
+  --white: #ffffff;
+  --white-light: #f7f7f7;
+
+  /* purple */
+  --purle: #7438f5;
+  --purple-light: #916ae3;
+  --purple-secondary: #a08ec7;
+
+  /* grey */
+  --grey: #909090;
+  --grey-light: #f0f0f0;
+}
+
+body {
+  background-color: var(--white);
+  font-family: "Roboto", sans-serif;
+}
