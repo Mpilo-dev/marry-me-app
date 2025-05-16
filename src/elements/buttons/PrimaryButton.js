@@ -27,18 +27,22 @@ const Button = ({
   padding,
   background,
   hoverBackground,
+  type = "button",
+  disabled,
+  ...props
 }) => {
   return (
-    <>
-      <StyledButton
-        textTransform={textTransform}
-        padding={padding}
-        background={background}
-        hoverBackground={hoverBackground}
-      >
-        {text}
-      </StyledButton>
-    </>
+    <StyledButton
+      type={type}
+      disabled={disabled}
+      textTransform={textTransform}
+      padding={padding}
+      background={background}
+      hoverBackground={hoverBackground}
+      {...props}
+    >
+      {text}
+    </StyledButton>
   );
 };
 
