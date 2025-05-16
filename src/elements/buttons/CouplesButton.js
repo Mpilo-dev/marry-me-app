@@ -9,27 +9,38 @@ const StyledButton = styled.button`
   background: ${(props) => props.background || "var(--purple)"};
   color: var(--white);
   border-radius: 1rem;
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   text-align: center;
+  opacity: ${(props) => (props.disabled ? 0.7 : 1)};
 
   &:hover {
-    background: ${(props) => props.hoverBackground || "var(--purple-light)"};
+    background: ${(props) =>
+      props.disabled
+        ? props.background || "var(--purple)"
+        : props.hoverBackground || "var(--purple-light)"};
   }
 
   margin: 1rem;
 `;
 
-const Button = ({ text, background, color, hoverBackground }) => {
+const Button = ({
+  text,
+  background,
+  color,
+  hoverBackground,
+  onClick,
+  disabled,
+}) => {
   return (
-    <>
-      <StyledButton
-        background={background}
-        color={color}
-        hoverBackground={hoverBackground}
-      >
-        {text}
-      </StyledButton>
-    </>
+    <StyledButton
+      background={background}
+      color={color}
+      hoverBackground={hoverBackground}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {text}
+    </StyledButton>
   );
 };
 

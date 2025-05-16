@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
 import CloseButton from "../buttons/CloseButton";
 import CouplesButton from "../buttons/CouplesButton";
+import NewBar from "../../components/NewBar";
+import {
+  createMarriage,
+  clearError,
+  fetchMarriages,
+} from "../../redux/features/marriageSlice";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -33,15 +40,86 @@ const Text = styled.span`
   font-size: 0.75rem;
 `;
 
-const Modal = ({ isVisible, onClick, selectedBoy, selectedGirl }) =>
-  isVisible && (
-    <ModalBackground>
-      <ModalContent>
-        <CloseButton onClick={onClick}>Close</CloseButton>
-        <Text>Declare couple husband and wife</Text>
-        <CouplesButton text="marry couple!" />
-      </ModalContent>
-    </ModalBackground>
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+`;
+
+const Modal = ({ isVisible, onClose, selectedBoy, selectedGirl, onReset }) => {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.marriage);
+
+  const handleMarry = async () => {
+    console.log("Marry button clicked");
+    console.log("Selected Boy:", selectedBoy);
+    console.log("Selected Girl:", selectedGirl);
+
+    if (!selectedBoy || !selectedGirl) {
+      console.error("Missing selected boy or girl");
+      return;
+    }
+
+    try {
+      console.log("Dispatching createMarriage action");
+      const result = await dispatch(
+        createMarriage({
+          husbandId: selectedBoy._id,
+          wifeId: selectedGirl._id,
+        })
+      ).unwrap();
+      console.log("Marriage created successfully:", result);
+
+      // Fetch updated marriages list
+      await dispatch(fetchMarriages());
+
+      // Reset selections
+      if (onReset) {
+        onReset();
+      }
+
+      onClose();
+    } catch (error) {
+      console.error("Failed to create marriage:", error);
+    }
+  };
+
+  const handleClose = () => {
+    dispatch(clearError());
+    onClose();
+  };
+
+  // Helper function to format error message
+  const getErrorMessage = (error) => {
+    if (typeof error === "string") return error;
+    if (error?.message) return error.message;
+    if (error?.status) return `Error: ${error.status}`;
+    return "An error occurred";
+  };
+
+  return (
+    isVisible && (
+      <ModalBackground>
+        <ModalContent>
+          <CloseButton onClick={handleClose}>Close</CloseButton>
+          <Text>Declare couple husband and wife</Text>
+
+          <NewBar
+            boy={selectedBoy}
+            girl={selectedGirl}
+            active={!!selectedBoy && !!selectedGirl}
+          />
+          <CouplesButton
+            text={loading ? "Marrying..." : "marry couple!"}
+            onClick={handleMarry}
+            disabled={loading}
+          />
+          {error && <ErrorMessage>{getErrorMessage(error)}</ErrorMessage>}
+        </ModalContent>
+      </ModalBackground>
+    )
   );
+};
 
 export default Modal;
