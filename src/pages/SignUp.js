@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { navigate } from "gatsby";
 import CustomInput from "../elements/Input";
 import PrimaryButton from "../elements/buttons/PrimaryButton";
-import { basicSchema } from "../components/schemas/BasicSchema";
+import { basicSchema, loginSchema } from "../components/schemas/BasicSchema";
 import Logo from "../images/smaller_logo.png";
+import { signup, login } from "../redux/features/authSlice";
 
 const Container = styled.div`
   display: flex;
@@ -31,18 +34,29 @@ const FlexRowContainer = styled.div`
   justify-content: space-between;
 `;
 
-const StyledButton = styled.span`
+const StyledButton = styled.button`
   font-size: 12px;
   cursor: pointer;
   margin-bottom: 10px;
   text-transform: capitalize;
+  background: none;
+  border: none;
+  padding: 0;
 
   &:hover {
     color: var(--gray);
   }
 `;
 
-const Login = () => {
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+`;
+
+const SignUp = () => {
+  const dispatch = useDispatch();
+  const { isLoading, error } = useSelector((state) => state.auth);
   const [showSignUp, setShowSignUp] = useState(false);
 
   const toggleSignUp = () => {
@@ -50,8 +64,28 @@ const Login = () => {
   };
 
   const onSubmit = async (values, actions) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    actions.resetForm();
+    try {
+      if (showSignUp) {
+        const result = await dispatch(signup(values)).unwrap();
+        if (result) {
+          navigate("/indexPage");
+        }
+      } else {
+        // Handle login
+        const loginData = {
+          email: values.email,
+          password: values.password,
+        };
+        const result = await dispatch(login(loginData)).unwrap();
+        if (result) {
+          navigate("/indexPage");
+        }
+      }
+    } catch (error) {
+      console.error("Form submission failed:", error);
+    } finally {
+      actions.setSubmitting(false);
+    }
   };
 
   return (
@@ -59,33 +93,51 @@ const Login = () => {
       <LogoImage src={Logo} alt="logo" />
       <Formik
         initialValues={{ name: "", surname: "", email: "", password: "" }}
-        validationSchema={basicSchema}
+        validationSchema={showSignUp ? basicSchema : loginSchema}
         onSubmit={onSubmit}
       >
-        {(props) => (
-          <StyledForm>
-            <FlexRowContainer visible={showSignUp}>
-              <CustomInput type="text" name="name" placeholder="First Name" />
-              <CustomInput type="text" name="surname" placeholder="Last Name" />
-            </FlexRowContainer>
-            <CustomInput type="text" name="email" placeholder="Email" />
-            <CustomInput
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
-            <PrimaryButton
-              type="submit"
-              text={showSignUp ? "Register" : " Login "}
-            />
-            <StyledButton onClick={toggleSignUp}>
-              {showSignUp ? "Login" : "Sign-up"}
-            </StyledButton>
-          </StyledForm>
+        {({ isSubmitting, errors, touched }) => (
+          <Form>
+            <StyledForm>
+              <FlexRowContainer visible={showSignUp}>
+                <CustomInput type="text" name="name" placeholder="First Name" />
+                <CustomInput
+                  type="text"
+                  name="surname"
+                  placeholder="Last Name"
+                />
+              </FlexRowContainer>
+              <CustomInput type="text" name="email" placeholder="Email" />
+              <CustomInput
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+              <PrimaryButton
+                type="submit"
+                text={
+                  isLoading
+                    ? "Processing..."
+                    : showSignUp
+                    ? "Register"
+                    : "Login"
+                }
+                disabled={isLoading || isSubmitting}
+              />
+              {error && <ErrorMessage>{error}</ErrorMessage>}
+              <StyledButton
+                type="button"
+                onClick={toggleSignUp}
+                aria-label={showSignUp ? "Switch to login" : "Switch to signup"}
+              >
+                {showSignUp ? "Login" : "Sign-up"}
+              </StyledButton>
+            </StyledForm>
+          </Form>
         )}
       </Formik>
     </Container>
   );
 };
 
-export default Login;
+export default SignUp;
