@@ -20,18 +20,28 @@ const StyledButton = styled.button`
   margin: 1rem;
 `;
 
-const Button = ({ text, background, color, border, hoverBackground }) => {
+const Button = ({
+  text,
+  background,
+  color,
+  border,
+  hoverBackground,
+  onClick,
+  type = "button",
+  ...props
+}) => {
   return (
-    <>
-      <StyledButton
-        background={background}
-        color={color}
-        border={border}
-        hoverBackground={hoverBackground}
-      >
-        {text}
-      </StyledButton>
-    </>
+    <StyledButton
+      type={type}
+      onClick={onClick}
+      background={background}
+      color={color}
+      border={border}
+      hoverBackground={hoverBackground}
+      {...props}
+    >
+      {text}
+    </StyledButton>
   );
 };
 

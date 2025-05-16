@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Card from "../../components/cards/Card";
-
+import { useDispatch } from "react-redux";
 import CloseButton from "../buttons/CloseButton";
 import PrimaryButton from "../buttons/PrimaryButton";
+import { deletePerson } from "../../redux/features/personSlice";
 
 const ModalBackground = styled.div`
   position: fixed;
@@ -15,40 +15,123 @@ const ModalBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 `;
 
 const ModalContent = styled.div`
   width: 400px;
-  height: 250px;
   background-color: white;
   border-radius: 15px;
   padding: 25px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const Text = styled.span`
-  color: var(--purple-light);
-  font-size: 0.75rem;
+  color: var(--black);
+  font-size: 1rem;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 500;
 `;
 
-const Modal = ({ isVisible, onClick, selectedBoy, selectedGirl }) =>
-  isVisible && (
-    <ModalBackground>
-      <ModalContent>
-        <CloseButton onClick={onClick}>Close</CloseButton>
-        <Text>Are you sure you want to delete</Text>
-        <PrimaryButton
-          text="delete"
-          textTransform="capitalize"
-          padding="0.25rem 3.5rem"
-          background="var(--grey)"
-          hoverBackground="var(--gray)"
-        />
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
+
+const DeleteButton = styled(PrimaryButton)`
+  &:hover {
+    background: var(--red) !important;
+    color: white !important;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  color: var(--red);
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+`;
+
+const Modal = ({ isVisible, onClick, person }) => {
+  const dispatch = useDispatch();
+  const [error, setError] = React.useState(null);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+
+  const handleDelete = async () => {
+    if (!person?._id) {
+      console.error("Delete attempted without person ID");
+      setError("No person ID provided for deletion");
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      setError(null);
+      console.log("Starting delete process for person:", {
+        id: person._id,
+        name: `${person.firstName} ${person.lastName}`,
+      });
+
+      const result = await dispatch(deletePerson(person._id)).unwrap();
+      console.log("Delete successful, result:", result);
+
+      onClick(); // Close modal after successful deletion
+    } catch (error) {
+      console.error("Delete failed with error:", {
+        message: error.message,
+        error: error,
+      });
+      setError(error.message || "Failed to delete person");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleClose = () => {
+    setError(null);
+    onClick();
+  };
+
+  if (!isVisible || !person) {
+    console.log("Modal not visible or no person provided");
+    return null;
+  }
+
+  return (
+    <ModalBackground onClick={handleClose}>
+      <ModalContent onClick={(e) => e.stopPropagation()}>
+        <CloseButton onClick={handleClose} />
+        <Text>
+          Are you sure you want to delete {person.firstName} {person.lastName}?
+        </Text>
+        <ButtonContainer>
+          <PrimaryButton
+            text="Cancel"
+            textTransform="capitalize"
+            padding="0.25rem 2rem"
+            background="var(--grey)"
+            hoverBackground="var(--gray)"
+            onClick={handleClose}
+          />
+          <DeleteButton
+            text={isDeleting ? "Deleting..." : "Delete"}
+            textTransform="capitalize"
+            padding="0.25rem 2rem"
+            background="var(--black)"
+            hoverBackground="var(--red)"
+            onClick={handleDelete}
+            disabled={isDeleting}
+          />
+        </ButtonContainer>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
       </ModalContent>
     </ModalBackground>
   );
+};
 
 export default Modal;
