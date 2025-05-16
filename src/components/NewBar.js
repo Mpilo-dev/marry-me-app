@@ -8,62 +8,63 @@ const BarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--purple-light);
   border-radius: 1.75rem;
+  background: transparent;
 `;
 
 const BarSegment = styled.div`
-  /* display: flex; */
   flex: 1;
-  align-items: stretch;
   text-align: center;
   font-size: 1rem;
   font-weight: bold;
-  background-color: ${(props) => (props.isActive ? "purple" : "")};
+  color: ${(props) => (props.isActive ? "var(--white)" : "var(--black)")};
+  background-color: ${(props) =>
+    props.isActive ? "var(--purple)" : "var(--white-light)"};
+  padding: 1rem;
+  border-radius: ${(props) =>
+    props.isLeft ? "1.75rem 0 0 1.75rem" : "0 1.75rem 1.75rem 0"};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--purple-light);
 `;
 
 const SymbolSegment = styled.div`
-  flex: 1;
-  text-align: center;
-  font-size: 25px;
-  font-weight: bold;
-  /* background-color: ${(props) => (props.isActive ? "var(--white)" : "")}; */
+  flex: 0 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const MainIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  font-size: 1rem;
-  font-weight: bold;
-`;
 const Icon = styled.img`
   width: 24px;
   height: 24px;
-  font-size: 1rem;
-  font-weight: bold;
 `;
 
-const Bar = ({ boy, girl }) => {
+const NewBar = ({ boy, girl, active }) => {
   return (
-    <BarContainer>
-      <BarSegment isActive={boy}>
+    <BarContainer active={active}>
+      <BarSegment isActive={!!boy} isLeft>
         {boy ? (
           <>
-            <Icon src={UserIcon} alt="User Icon" />
-            {boy}
+            <Icon src={UserIcon} alt="Male Icon" />
+            {`${boy.firstName} ${boy.lastName}`}
           </>
         ) : (
           "No husband"
         )}
       </BarSegment>
-      <SymbolSegment isActive={boy && girl}>
-        <Icon src={UsersIcon} alt="Users Icon" />
+      <SymbolSegment>
+        <Icon src={UsersIcon} alt="Couple Icon" />
       </SymbolSegment>
-      <BarSegment isActive={girl}>
+      <BarSegment isActive={!!girl}>
         {girl ? (
           <>
-            {girl}
-            <Icon src={UserIcon} alt="User Icon" />
+            {`${girl.firstName} ${girl.lastName}`}
+            <Icon src={UserIcon} alt="Female Icon" />
           </>
         ) : (
           "No wife"
@@ -73,4 +74,4 @@ const Bar = ({ boy, girl }) => {
   );
 };
 
-export default Bar;
+export default NewBar;
