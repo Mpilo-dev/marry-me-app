@@ -2,29 +2,61 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../helpers/axiosInstance";
 
 // Async thunk for signup
-export const signup = createAsyncThunk(
-  "auth/signup",
-  async (userData, { rejectWithValue }) => {
-    try {
-      const response = await api.post("/users/signup", userData);
-      console.log("Signup Response:", response.data);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response?.data || "Signup failed");
-    }
-  }
-);
+// export const signup = createAsyncThunk(
+//   "auth/signup",
+//   async (userData, { rejectWithValue }) => {
+//     try {
+//       const response = await api.post("/users/signup", userData);
+//       console.log("Signup Response:", response.data);
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.response?.data || "Signup failed");
+//     }
+//   }
+// );
 
-// Async thunk for login
+// // Async thunk for login
+// export const login = createAsyncThunk(
+//   "auth/login",
+//   async (credentials, { rejectWithValue }) => {
+//     try {
+//       const response = await api.post("/users/login", credentials);
+//       console.log("Login Response:", response.data);
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.response?.data || "Login failed");
+//     }
+//   }
+// );
+
 export const login = createAsyncThunk(
   "auth/login",
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await api.post("/users/login", credentials);
-      console.log("Login Response:", response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response?.data || "Login failed");
+      // Return a consistent error structure
+      return rejectWithValue({
+        message: error.response?.data?.message || "Login failed",
+        status: error.response?.status,
+      });
+    }
+  }
+);
+
+export const signup = createAsyncThunk(
+  "auth/signup",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await api.post("/users/signup", userData);
+      return response.data;
+    } catch (error) {
+      // Return a consistent error structure
+      return rejectWithValue({
+        message: error.response?.data?.message || "Signup failed",
+        status: error.response?.status,
+      });
     }
   }
 );
