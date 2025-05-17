@@ -124,7 +124,8 @@ const SignUp = () => {
                 }
                 disabled={isLoading || isSubmitting}
               />
-              {error && <ErrorMessage>{error}</ErrorMessage>}
+
+              {error?.message && <ErrorMessage>{error.message}</ErrorMessage>}
               <StyledButton
                 type="button"
                 onClick={toggleSignUp}
