@@ -66,7 +66,7 @@ const GridBackground = styled.div`
   flex-direction: column;
 `;
 
-const IndexPage = () => {
+const Index = () => {
   const dispatch = useDispatch();
   const [selectedBoy, setSelectedBoy] = useState(null);
   const [selectedGirl, setSelectedGirl] = useState(null);
@@ -170,6 +170,6 @@ const IndexPage = () => {
   );
 };
 
-export default IndexPage;
+export default Index;
 
 export const Head = () => <title>Home Page</title>;
