@@ -68,7 +68,7 @@ const SignUp = () => {
       if (showSignUp) {
         const result = await dispatch(signup(values)).unwrap();
         if (result) {
-          navigate("/indexPage");
+          navigate("/");
         }
       } else {
         // Handle login
@@ -78,7 +78,7 @@ const SignUp = () => {
         };
         const result = await dispatch(login(loginData)).unwrap();
         if (result) {
-          navigate("/indexPage");
+          navigate("/");
         }
       }
     } catch (error) {

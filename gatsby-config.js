@@ -4,7 +4,7 @@
 module.exports = {
   siteMetadata: {
     title: `marry-me-app`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://marry-me.online`,
   },
-  plugins: ["gatsby-plugin-styled-components"]
+  plugins: ["gatsby-plugin-styled-components"],
 };
