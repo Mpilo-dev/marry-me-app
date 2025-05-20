@@ -60,7 +60,6 @@ const GridBackground = styled.div`
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
   background: var(--white-light);
-  /* overflow: auto; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -85,7 +84,6 @@ const Index = () => {
   };
 
   const handleBoySelect = (boy) => {
-    // Don't allow selection if already married
     if (isPersonMarried(boy._id)) {
       return;
     }
@@ -94,7 +92,6 @@ const Index = () => {
       setSelectedBoy(null);
     } else {
       setSelectedBoy(boy);
-      // If girl is already selected, show marriage modal
       if (selectedGirl) {
         setIsMarryModalOpen(true);
       }
@@ -102,7 +99,6 @@ const Index = () => {
   };
 
   const handleGirlSelect = (girl) => {
-    // Don't allow selection if already married
     if (isPersonMarried(girl._id)) {
       return;
     }
@@ -111,7 +107,6 @@ const Index = () => {
       setSelectedGirl(null);
     } else {
       setSelectedGirl(girl);
-      // If boy is already selected, show marriage modal
       if (selectedBoy) {
         setIsMarryModalOpen(true);
       }

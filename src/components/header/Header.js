@@ -12,8 +12,6 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1.5rem;
-  background-color: #f0f0f0;
-  margin-bottom: 1rem;
 `;
 
 const Logo = styled.img`

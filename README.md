@@ -1,49 +1,72 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Minimal Starter
-</h1>
+# Marry-Me Front-End
 
-## 🚀 Quick start
+This is the front-end of the **Marry-Me** application, built using React, Redux Toolkit for state management, and Formik + Yup for form handling and validation.
 
-1.  **Create a Gatsby site.**
+🚧 This project is a work in progress and will continue to evolve as I actively grow and apply new skills throughout my development journey.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+## Description
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+The Marry-Me app is a playful yet functional platform designed to simulate marriage and relationship dynamics in a virtual environment.
 
-2.  **Start developing.**
+## 🌐 Live URL
 
-    Navigate into your new site’s directory and start it up.
+> https://marry-me.online/
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+## 🛠 Tech Stack
 
-3.  **Open the code and start customizing!**
+- React
+- Redux Toolkit
+- Formik
+- Yup
+- Axios (for API requests)
+- Styled Components
 
-    Your site is now running at http://localhost:8000!
+## 📦 Getting Started
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+### 1. Clone the Repository
 
-4.  **Learn more**
+```bash
+git clone https://github.com/Mpilo-dev/marry-me-app.git
+cd marry-me-frontend
+```
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+### 2. Install Dependencies
 
-## 🚀 Quick start (Netlify)
+```bash
+npm install
+```
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
+###3. Start the Development Server
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal)
+```bash 
+npm start
+
+This will run the app locally at http://localhost:8000.
+```
+
+## 🚀 Features
+
+- ✅ User registration and authentication
+- 👤 Create Person profiles
+- 💑 Create and view Marriages
+- 💔 File Divorces
+- 🧠 Form validation with Formik and Yup
+- 🌍 Global state management via Redux Toolkit
+
+## 📷 Screenshots
+
+![Sign up](./screenshots/registration.PNG)
+![Login](./screenshots/login.PNG)
+![Dashboard](./screenshots/dashboard.PNG)
+![Add Person](./screenshots/add_person.PNG)
+![Dashboard with Person(s)](./screenshots/dashboard_person.PNG)
+![Delete Person](./screenshots/delete_person.PNG)
+![Select Person](./screenshots/select_person.PNG)
+![Marriage](./screenshots/marriage.PNG)
+![Couples](./screenshots/couples.PNG)
+![Divorce](./screenshots/divorce.PNG)
+
+## ✨ Future Enhancements
+
+- Face lift of the SignUp/login page
+- And many other enhancements

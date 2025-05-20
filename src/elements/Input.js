@@ -7,7 +7,6 @@ const Input = styled.input`
   padding: 0.85rem 1.5rem;
   font-size: 0.8rem;
   font-weight: bold;
-  text-transform: capitalize;
   color: var(--black);
   border: none;
   background-color: var(--grey-light);

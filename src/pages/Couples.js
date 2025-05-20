@@ -95,7 +95,7 @@ const Couples = () => {
   const [isDivorceModalOpen, setIsDivorceModalOpen] = useState(false);
 
   const handleBack = () => {
-    navigate("/indexPage");
+    navigate("/");
   };
 
   const handleDivorceClick = (marriage) => {
@@ -133,7 +133,7 @@ const Couples = () => {
                         active={true}
                       />
                       <SecondaryButton
-                        text="Divorce Couple"
+                        text="Divorce"
                         border="none"
                         onClick={() => handleDivorceClick(marriage)}
                         type="button"
