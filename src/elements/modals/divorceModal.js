@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import CloseButton from "../buttons/CloseButton";
 import PrimaryButton from "../buttons/PrimaryButton";
+import NewBar from "../../components/NewBar";
+
 import { deleteMarriage } from "../../redux/features/marriageSlice";
 
 const ModalBackground = styled.div`
@@ -16,6 +18,15 @@ const ModalBackground = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  text-align: center;
 `;
 
 const ModalContent = styled.div`
@@ -32,8 +43,6 @@ const ModalContent = styled.div`
 const Text = styled.span`
   color: var(--black);
   font-size: 1rem;
-  margin: 20px 0;
-  text-align: center;
   font-weight: 500;
 `;
 
@@ -89,7 +98,7 @@ const Modal = ({ isVisible, onClose, marriage }) => {
       const result = await dispatch(deleteMarriage(marriage._id)).unwrap();
       console.log("Divorce successful, result:", result);
 
-      onClose(); // Close modal after successful divorce
+      onClose();
     } catch (error) {
       console.error("Divorce failed with error:", {
         message: error.message,
@@ -124,11 +133,12 @@ const Modal = ({ isVisible, onClose, marriage }) => {
     <ModalBackground onClick={handleClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={handleClose} />
-        <Text>
-          Are you sure you want to divorce {marriage.husband.firstName}{" "}
-          {marriage.husband.lastName} and {marriage.wife.firstName}{" "}
-          {marriage.wife.lastName}?
-        </Text>
+        <TextContainer>
+          <Text>Are you sure you want to divorce</Text>
+          <NewBar boy={marriage.husband} girl={marriage.wife} active={true} />
+          <Text>This action cannot be undone</Text>
+        </TextContainer>
+
         <ButtonContainer>
           <PrimaryButton
             text="Cancel"

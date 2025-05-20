@@ -10,10 +10,13 @@ const BarContainer = styled.div`
   justify-content: center;
   border-radius: 1.75rem;
   background: transparent;
+  width: 100%;
+  min-width: 300px;
 `;
 
 const BarSegment = styled.div`
   flex: 1;
+  min-width: 0;
   text-align: center;
   font-size: 1rem;
   font-weight: bold;
@@ -29,6 +32,14 @@ const BarSegment = styled.div`
   gap: 0.5rem;
   transition: all 0.3s ease;
   border: 1px solid var(--purple-light);
+  overflow: hidden;
+`;
+
+const NameText = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
 `;
 
 const SymbolSegment = styled.div`
@@ -42,6 +53,7 @@ const SymbolSegment = styled.div`
 const Icon = styled.img`
   width: 24px;
   height: 24px;
+  flex-shrink: 0;
 `;
 
 const NewBar = ({ boy, girl, active }) => {
@@ -51,7 +63,7 @@ const NewBar = ({ boy, girl, active }) => {
         {boy ? (
           <>
             <Icon src={UserIcon} alt="Male Icon" />
-            {`${boy.firstName} ${boy.lastName}`}
+            <NameText>{`${boy.firstName} ${boy.lastName}`}</NameText>
           </>
         ) : (
           "No husband"
@@ -63,7 +75,7 @@ const NewBar = ({ boy, girl, active }) => {
       <BarSegment isActive={!!girl}>
         {girl ? (
           <>
-            {`${girl.firstName} ${girl.lastName}`}
+            <NameText>{`${girl.firstName} ${girl.lastName}`}</NameText>
             <Icon src={UserIcon} alt="Female Icon" />
           </>
         ) : (
