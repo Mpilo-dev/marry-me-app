@@ -6,12 +6,6 @@ import PrimaryButton from "../../elements/buttons/PrimaryButton";
 import AddModal from "../../elements/modals/AddModal";
 import DeleteModal from "../../elements/modals/DeleteModal";
 
-// const Container = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   gap: 1rem;
-// `;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,19 +13,22 @@ const Container = styled.div`
   gap: 1rem;
 `;
 
-// const GridContainer = styled.div`
-//   flex: 1;
-//   display: grid;
-//   grid-template-columns: repeat(2, 1fr);
-//   grid-gap: 15px;
-// `;
-
 const GridContainer = styled.div`
   flex: 1;
-  overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 15px;
+  overflow-y: auto;
+  position: relative;
+`;
+
+const EmptyMessage = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #666;
+  font-size: 1.2rem;
 `;
 
 const ButtonContainer = styled.div`
@@ -73,16 +70,20 @@ function BoyGrid({ selectedBoy, onSelectBoy }) {
   return (
     <Container>
       <GridContainer>
-        {boys.map((boy) => (
-          <Card
-            key={boy._id}
-            selected={selectedBoy?._id === boy._id}
-            fullName={`${boy.firstName} ${boy.lastName}`}
-            onCardClick={() => handleClick(boy)}
-            onDelete={handleDelete}
-            person={boy}
-          />
-        ))}
+        {boys.length === 0 ? (
+          <EmptyMessage>No guy added yet</EmptyMessage>
+        ) : (
+          boys.map((boy) => (
+            <Card
+              key={boy._id}
+              selected={selectedBoy?._id === boy._id}
+              fullName={`${boy.firstName} ${boy.lastName}`}
+              onCardClick={() => handleClick(boy)}
+              onDelete={handleDelete}
+              person={boy}
+            />
+          ))
+        )}
       </GridContainer>
       <ButtonContainer>
         <PrimaryButton

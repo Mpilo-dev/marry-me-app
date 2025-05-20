@@ -19,6 +19,16 @@ const GridContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 15px;
   overflow-y: auto;
+  position: relative;
+`;
+
+const EmptyMessage = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #666;
+  font-size: 1.2rem;
 `;
 
 const ButtonContainer = styled.div`
@@ -60,16 +70,20 @@ function GirlGrid({ selectedGirl, onSelectGirl }) {
   return (
     <Container>
       <GridContainer>
-        {girls.map((girl) => (
-          <Card
-            key={girl._id}
-            selected={selectedGirl?._id === girl._id}
-            fullName={`${girl.firstName} ${girl.lastName}`}
-            onCardClick={() => handleClick(girl)}
-            onDelete={handleDelete}
-            person={girl}
-          />
-        ))}
+        {girls.length === 0 ? (
+          <EmptyMessage>No girl added yet</EmptyMessage>
+        ) : (
+          girls.map((girl) => (
+            <Card
+              key={girl._id}
+              selected={selectedGirl?._id === girl._id}
+              fullName={`${girl.firstName} ${girl.lastName}`}
+              onCardClick={() => handleClick(girl)}
+              onDelete={handleDelete}
+              person={girl}
+            />
+          ))
+        )}
       </GridContainer>
       <ButtonContainer>
         <PrimaryButton

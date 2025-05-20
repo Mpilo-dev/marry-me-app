@@ -8,7 +8,6 @@ const StyledButton = styled.button`
   background: ${(props) => props.background || "var(--grey-button)"};
   color: ${(props) => props.color || "var(--black)"};
   border-radius: 1rem;
-  /* border: ${(props) => props.border || "none"}; */
   cursor: pointer;
   text-align: center;
   border: ${(props) => props.border || "1px solid var(--purple-light)"};
