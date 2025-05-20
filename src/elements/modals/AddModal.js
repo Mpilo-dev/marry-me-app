@@ -35,6 +35,7 @@ const ModalContent = styled.div`
 const FormContainer = styled.div`
   width: 100%;
   margin-top: 20px;
+  align-items: center;
 `;
 
 const ButtonContainer = styled.div`
@@ -49,6 +50,12 @@ const ErrorMessage = styled.div`
   font-size: 14px;
   margin-top: 10px;
   text-align: center;
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 7px;
 `;
 
 const Modal = ({ isVisible, onClick, gender }) => {
@@ -66,12 +73,12 @@ const Modal = ({ isVisible, onClick, gender }) => {
       const personData = {
         firstName: values.firstName,
         lastName: values.lastName,
-        gender: values.gender === "male" ? "Male" : "Female", // Convert to match API enum
+        gender: values.gender === "male" ? "Male" : "Female",
       };
 
       await dispatch(createPerson(personData)).unwrap();
       resetForm();
-      onClick(); // Close modal after successful submission
+      onClick();
     } catch (error) {
       console.error("Failed to create person:", error);
     } finally {
@@ -97,22 +104,31 @@ const Modal = ({ isVisible, onClick, gender }) => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <CustomInput
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                  />
-                  <CustomInput
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                  />
-                  <CustomInput
-                    type="text"
-                    name="gender"
-                    placeholder="Gender"
-                    disabled
-                  />
+                  <InputWrapper>
+                    <CustomInput
+                      type="text"
+                      name="firstName"
+                      placeholder="First Name"
+                    />
+                  </InputWrapper>
+
+                  <InputWrapper>
+                    <CustomInput
+                      type="text"
+                      name="lastName"
+                      placeholder="Last Name"
+                    />
+                  </InputWrapper>
+
+                  <InputWrapper>
+                    <CustomInput
+                      type="text"
+                      name="gender"
+                      placeholder="Gender"
+                      disabled
+                    />
+                  </InputWrapper>
+
                   {error && <ErrorMessage>{error}</ErrorMessage>}
                   <ButtonContainer>
                     <PrimaryButton
