@@ -37,7 +37,8 @@ const ModalContent = styled.div`
 
 const Text = styled.span`
   color: var(--black);
-  font-size: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
 `;
 
 const ErrorMessage = styled.div`

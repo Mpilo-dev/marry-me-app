@@ -20,6 +20,7 @@ const GridContainer = styled.div`
   grid-gap: 15px;
   overflow-y: auto;
   position: relative;
+  align-content: start;
 `;
 
 const EmptyMessage = styled.div`
