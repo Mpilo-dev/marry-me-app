@@ -24,13 +24,15 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   margin: 1rem 0;
   text-align: center;
+  width: 100%;
+  padding: 0 1rem;
 `;
 
 const ModalContent = styled.div`
-  width: 400px;
+  width: 450px;
   background-color: white;
   border-radius: 15px;
   padding: 25px;
@@ -43,7 +45,7 @@ const ModalContent = styled.div`
 const Text = styled.span`
   color: var(--black);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: bold;
 `;
 
 const ButtonContainer = styled.div`
