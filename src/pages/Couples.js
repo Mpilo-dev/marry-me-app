@@ -9,6 +9,7 @@ import NewBar from "../components/NewBar";
 import SecondaryButton from "../elements/buttons/SecondaryButton";
 import DivorceModal from "../elements/modals/divorceModal";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Logo from "../images/xsmall_logo.png";
 
 const AppContainer = styled.div`
   display: flex;
@@ -157,4 +158,9 @@ const Couples = () => {
 
 export default Couples;
 
-export const Head = () => <title>Couples Page</title>;
+export const Head = () => (
+  <>
+    <title>Couples Page</title>
+    <link rel="icon" type="image/png" href={Logo} />
+  </>
+);
