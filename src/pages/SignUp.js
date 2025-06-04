@@ -142,3 +142,10 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+export const Head = () => (
+  <>
+    <title>SignUp Page</title>
+    <link rel="icon" type="image/png" href={Logo} />
+  </>
+);

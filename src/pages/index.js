@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Logo from "../images/xsmall_logo.png";
 import { useSelector, useDispatch } from "react-redux";
 
 import Layout from "../components/Layout";
@@ -167,4 +168,9 @@ const Index = () => {
 
 export default Index;
 
-export const Head = () => <title>Home Page</title>;
+export const Head = () => (
+  <>
+    <title>Home Page</title>
+    <link rel="icon" type="image/png" href={Logo} />
+  </>
+);
