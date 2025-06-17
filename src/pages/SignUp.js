@@ -13,12 +13,14 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
   background: var(--white);
 `;
 
 const LogoImage = styled.img`
   margin: 40px;
+  width: 200px;
 `;
 
 const StyledForm = styled.div`

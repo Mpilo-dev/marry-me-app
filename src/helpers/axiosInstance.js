@@ -2,8 +2,8 @@ import axios from "axios";
 import { store } from "../redux/store";
 
 const api = axios.create({
-  // baseURL: "https://api.marry-meapp.site/api/v1/",
-  baseURL: "http://127.0.0.1:8000/api/v1/",
+  baseURL: "https://api.marry-meapp.site/api/v1/",
+  // baseURL: "http://127.0.0.1:8000/api/v1/",
   headers: {
     "Content-Type": "application/json",
   },
